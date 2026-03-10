@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="popup.css">
+</head>
+
+<body>
+  <div class="header">
+    <h1>PageContext</h1>
+  </div>
+  <div class="actions">
+    <button id="copy-article" class="action-btn">
+      <span class="action-icon">&#9998;</span>
+      <div>
+        <div class="action-label">Copy Article Text</div>
+        <div class="action-desc">Clean article text, no clutter</div>
+      </div>
+    </button>
+    <button id="copy-page" class="action-btn">
+      <span class="action-icon">&#9776;</span>
+      <div>
+        <div class="action-label">Copy Full Page</div>
+        <div class="action-desc">Complete HTML as seen in your browser</div>
+      </div>
+    </button>
+    <button id="toggle-pick" class="action-btn">
+      <span class="action-icon">&#9746;</span>
+      <div>
+        <div class="action-label">Pick Elements</div>
+        <div class="action-desc">Select containers like DevTools inspect</div>
+      </div>
+    </button>
+  </div>
+  <div id="pick-controls" class="annotate-controls" hidden>
+    <p class="annotate-hint">Hover to preview, click to select. Click again to deselect.</p>
+    <div class="annotate-actions">
+      <button id="copy-picked" class="btn-primary">Copy Selected</button>
+      <button id="clear-picked" class="btn-secondary">Clear All</button>
+    </div>
+  </div>
+  <div id="status" class="status" hidden></div>
+  <script src="popup.js"></script>
+</body>
+
+</html>
