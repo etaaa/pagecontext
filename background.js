@@ -2,7 +2,7 @@ async function ensureOffscreen() {
   const exists = await chrome.offscreen.hasDocument();
   if (!exists) {
     await chrome.offscreen.createDocument({
-      url: "offscreen.html",
+      url: "offscreen/offscreen.html",
       reasons: ["CLIPBOARD"],
       justification: "Write to clipboard from service worker",
     });
