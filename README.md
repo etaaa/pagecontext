@@ -2,6 +2,8 @@
 
 A Chrome extension that copies webpage content in clean, paste-ready formats for LLMs. LLMs can fetch public URLs, but they cannot bypass bot protection or see content behind login walls. PageContext bridges that gap by letting you copy exactly what you see in your browser and paste it into any LLM conversation.
 
+<img src="assets/screenshot.png" alt="PageContext popup" width="340">
+
 ## What it does
 
 PageContext gives you three ways to grab content from any webpage:
