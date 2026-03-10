@@ -1,21 +1,21 @@
 :root {
-  --bg: #09090b;
-  --bg-card: #111113;
-  --bg-muted: #18181b;
-  --bg-accent: #1e293b;
-  --border: #27272a;
-  --border-hover: #3f3f46;
-  --border-accent: #3b82f6;
-  --text: #fafafa;
-  --text-muted: #a1a1aa;
-  --text-accent: #60a5fa;
-  --primary: #fafafa;
-  --primary-hover: #e4e4e7;
-  --primary-text: #09090b;
-  --success-bg: #052e16;
-  --success-text: #4ade80;
-  --error-bg: #450a0a;
-  --error-text: #fca5a5;
+  --bg: #212121;
+  --bg-card: #1a1a1a;
+  --bg-muted: #333333;
+  --bg-accent: rgba(171, 104, 255, 0.12);
+  --border: #444444;
+  --border-hover: #555555;
+  --border-accent: #ab68ff;
+  --text: #ffffff;
+  --text-muted: #b0b0b0;
+  --text-accent: #c08fff;
+  --primary: #f5f5f5;
+  --primary-hover: #ffffff;
+  --primary-text: #171717;
+  --success-bg: rgba(16, 185, 129, 0.14);
+  --success-text: #34d399;
+  --error-bg: rgba(239, 68, 68, 0.14);
+  --error-text: #f87171;
   --radius: 10px;
   --radius-sm: 8px;
   --transition: 150ms ease;
@@ -42,7 +42,7 @@ body::before {
   content: "";
   position: fixed;
   inset: 0;
-  opacity: 0.025;
+  opacity: 0.015;
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
   pointer-events: none;
   z-index: 100;
@@ -63,7 +63,7 @@ body::before {
   left: 16px;
   right: 16px;
   height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(59, 130, 246, 0.5), rgba(139, 92, 246, 0.3), transparent);
+  background: linear-gradient(90deg, transparent, rgba(171, 104, 255, 0.35), rgba(171, 104, 255, 0.15), transparent);
 }
 
 .header h1 {
@@ -110,7 +110,7 @@ body::before {
 .action-btn.active {
   background: var(--bg-accent);
   border-color: var(--border-accent);
-  box-shadow: 0 0 12px rgba(59, 130, 246, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.03);
+  box-shadow: 0 0 12px rgba(171, 104, 255, 0.15);
 }
 
 .action-icon {
@@ -122,7 +122,7 @@ body::before {
   border-radius: var(--radius-sm);
   background: var(--bg-muted);
   border: 1px solid var(--border);
-  color: var(--text-muted);
+  color: var(--text);
   flex-shrink: 0;
   transition:
     color var(--transition),
@@ -135,14 +135,13 @@ body::before {
   color: var(--text);
   background: var(--border);
   border-color: var(--border-hover);
-  box-shadow: 0 0 8px rgba(255, 255, 255, 0.04);
 }
 
 .action-btn.active .action-icon {
-  background: rgba(59, 130, 246, 0.15);
-  border-color: rgba(59, 130, 246, 0.3);
+  background: rgba(171, 104, 255, 0.15);
+  border-color: rgba(171, 104, 255, 0.3);
   color: var(--text-accent);
-  box-shadow: 0 0 10px rgba(59, 130, 246, 0.1);
+  box-shadow: 0 0 8px rgba(171, 104, 255, 0.1);
 }
 
 .action-icon svg {
@@ -161,7 +160,7 @@ body::before {
 }
 
 .action-desc {
-  font-size: 11px;
+  font-size: 12px;
   color: var(--text-muted);
   margin-top: 2px;
 }
@@ -227,7 +226,7 @@ body::before {
 
 .btn-primary:hover {
   background: var(--primary-hover);
-  box-shadow: 0 2px 10px rgba(255, 255, 255, 0.1);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
 }
 
 .btn-secondary {

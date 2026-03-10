@@ -8,9 +8,9 @@ A Chrome extension that copies webpage content in clean, paste-ready formats for
 
 PageContext gives you three ways to grab content from any webpage:
 
+- **Pick Elements** lets you hover and click to select specific containers (like DevTools inspect mode), then copies their cleaned HTML.
 - **Copy Article Text** extracts the main article using Mozilla's Readability.js and copies it as markdown with the title and byline.
 - **Copy Full Page** copies the entire page's HTML with scripts, styles, iframes, and SVGs stripped out.
-- **Pick Elements** lets you hover and click to select specific containers (like DevTools inspect mode), then copies their cleaned HTML.
 
 The extension runs entirely in the browser with no build step, no external dependencies, and no data sent anywhere.
 

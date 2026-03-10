@@ -11,6 +11,22 @@
     <h1>PageContext</h1>
   </div>
   <div class="actions">
+    <button id="toggle-pick" class="action-btn">
+      <span class="action-icon">
+        <svg viewBox="0 0 24 24"><path d="M5 3a2 2 0 0 0-2 2"/><path d="M19 3a2 2 0 0 1 2 2"/><path d="M21 19a2 2 0 0 1-2 2"/><path d="M5 21a2 2 0 0 1-2-2"/><path d="M9 3h1"/><path d="M9 21h1"/><path d="M14 3h1"/><path d="M14 21h1"/><path d="M3 9v1"/><path d="M21 9v1"/><path d="M3 14v1"/><path d="M21 14v1"/></svg>
+      </span>
+      <div>
+        <div class="action-label">Pick Elements</div>
+        <div class="action-desc">Select containers like DevTools inspect</div>
+      </div>
+    </button>
+    <div id="pick-controls" class="pick-controls" hidden>
+      <p class="pick-hint">Hover to preview, click to select. Click again to deselect.</p>
+      <div class="pick-actions">
+        <button id="copy-picked" class="btn-primary">Copy Selected</button>
+        <button id="clear-picked" class="btn-secondary">Clear All</button>
+      </div>
+    </div>
     <button id="copy-article" class="action-btn">
       <span class="action-icon">
         <svg viewBox="0 0 24 24"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
@@ -31,22 +47,6 @@
       </div>
       <kbd class="keybind">Alt+Shift+P</kbd>
     </button>
-    <button id="toggle-pick" class="action-btn">
-      <span class="action-icon">
-        <svg viewBox="0 0 24 24"><path d="M5 3a2 2 0 0 0-2 2"/><path d="M19 3a2 2 0 0 1 2 2"/><path d="M21 19a2 2 0 0 1-2 2"/><path d="M5 21a2 2 0 0 1-2-2"/><path d="M9 3h1"/><path d="M9 21h1"/><path d="M14 3h1"/><path d="M14 21h1"/><path d="M3 9v1"/><path d="M21 9v1"/><path d="M3 14v1"/><path d="M21 14v1"/></svg>
-      </span>
-      <div>
-        <div class="action-label">Pick Elements</div>
-        <div class="action-desc">Select containers like DevTools inspect</div>
-      </div>
-    </button>
-  </div>
-  <div id="pick-controls" class="pick-controls" hidden>
-    <p class="pick-hint">Hover to preview, click to select. Click again to deselect.</p>
-    <div class="pick-actions">
-      <button id="copy-picked" class="btn-primary">Copy Selected</button>
-      <button id="clear-picked" class="btn-secondary">Clear All</button>
-    </div>
   </div>
   <div id="status" class="status" hidden></div>
   <script src="popup.js"></script>
