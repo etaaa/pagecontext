@@ -1,18 +1,18 @@
 # PageContext
 
-A Chrome extension that copies webpage content in clean, paste-ready formats for LLMs. LLMs can fetch public URLs, but they cannot bypass bot protection or see content behind login walls. PageContext bridges that gap by letting you copy exactly what you see in your browser and paste it into any LLM conversation.
+Copy what you see in your browser, paste it into any LLM.
+
+LLMs can fetch public URLs, but they can't get past bot protection or see anything behind a login. PageContext grabs the content straight from your browser tab and puts it on your clipboard in a clean, paste-ready format.
 
 <img src="assets/screenshot.png" alt="PageContext popup" width="340">
 
-## What it does
+## Features
 
-PageContext gives you three ways to grab content from any webpage:
+- **Pick Elements**: hover and click to select specific containers on the page (like DevTools inspect mode), then copy their cleaned HTML.
+- **Copy Article Text**: extract the main article using Mozilla's Readability.js. Copies as markdown with the title and byline.
+- **Copy Full Page**: copy the entire page's HTML with scripts, styles, iframes, and SVGs stripped out.
 
-- **Pick Elements** lets you hover and click to select specific containers (like DevTools inspect mode), then copies their cleaned HTML.
-- **Copy Article Text** extracts the main article using Mozilla's Readability.js and copies it as markdown with the title and byline.
-- **Copy Full Page** copies the entire page's HTML with scripts, styles, iframes, and SVGs stripped out.
-
-The extension runs entirely in the browser with no build step, no external dependencies, and no data sent anywhere.
+No build step, no external dependencies, no data sent anywhere. Everything runs locally in your browser.
 
 ## Install
 
@@ -27,7 +27,11 @@ The PageContext icon appears in your toolbar. Click it to open the popup.
 
 ## Usage
 
-Open the popup and click one of the three action buttons. The result is copied to your clipboard.
+Open the popup and pick one of the three actions. The result is copied to your clipboard.
+
+### Pick Elements
+
+Click "Pick Elements" to enter inspect mode. Hover over elements to preview them, click to select. Click a selected element again to deselect it. Use "Copy Selected" to copy all selected elements, or "Clear All" to reset.
 
 ### Keyboard shortcuts
 
@@ -38,11 +42,7 @@ Two actions have global shortcuts that work without opening the popup:
 | Copy Article Text | `Alt+Shift+A` |
 | Copy Full Page | `Alt+Shift+P` |
 
-You can customize these at `chrome://extensions/shortcuts`.
-
-### Pick Elements
-
-Click "Pick Elements" to enter inspect mode. Hover over elements to preview them, click to select. Click a selected element again to deselect it. Use "Copy Selected" to copy all selected elements, or "Clear All" to reset.
+Customize these at `chrome://extensions/shortcuts`.
 
 ## License
 
