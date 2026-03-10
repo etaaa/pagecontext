@@ -14,6 +14,24 @@
   },
   "permissions": [
     "activeTab",
-    "scripting"
-  ]
+    "scripting",
+    "offscreen"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "commands": {
+    "copy-article": {
+      "suggested_key": {
+        "default": "Alt+Shift+A"
+      },
+      "description": "Copy article text"
+    },
+    "copy-page": {
+      "suggested_key": {
+        "default": "Alt+Shift+P"
+      },
+      "description": "Copy full page"
+    }
+  }
 }
