@@ -44,4 +44,6 @@ Click "Pick Elements" to enter inspect mode. Hover over elements to preview them
 
 ## License
 
-Readability.js is vendored from [@mozilla/readability](https://github.com/nicovak/readability-js) under the Apache 2.0 license.
+MIT. See [LICENSE](LICENSE).
+
+Readability.js is vendored from [@mozilla/readability](https://github.com/mozilla/readability) under the Apache 2.0 license.
