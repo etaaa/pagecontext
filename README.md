@@ -1,8 +1,9 @@
 # PageContext
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
-[![Chrome MV3](https://img.shields.io/badge/Chrome-Manifest%20V3-4285F4?logo=googlechrome&logoColor=white)](https://developer.chrome.com/docs/extensions/develop/migrate/what-is-mv3)
+[![Chrome Web Store](https://img.shields.io/badge/Chrome_Web_Store-PageContext-4285F4?logo=googlechrome&logoColor=white)](https://chromewebstore.google.com/detail/fncinogbdidbbfnjgebeeloaamjlnmdn)
 [![No Build Step](https://img.shields.io/badge/build-none-brightgreen)](#)
+
 
 Copy what you see in your browser, paste it into any LLM.
 
@@ -23,7 +24,9 @@ No build step, no external dependencies, no data sent anywhere. Everything runs 
 
 ## Install
 
-PageContext is not on the Chrome Web Store yet. To install it locally:
+**[Install from the Chrome Web Store](https://chromewebstore.google.com/detail/fncinogbdidbbfnjgebeeloaamjlnmdn)**, the easiest way to get started.
+
+Or install manually from source:
 
 1. Clone this repository.
 2. Open `chrome://extensions` in Chrome (or any Chromium browser).
