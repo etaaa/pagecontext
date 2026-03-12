@@ -2,13 +2,13 @@
   --bg: #212121;
   --bg-card: #1a1a1a;
   --bg-muted: #333333;
-  --bg-accent: rgba(45, 212, 191, 0.12);
+  --bg-accent: rgba(143, 170, 131, 0.12);
   --border: #444444;
   --border-hover: #555555;
-  --border-accent: #2dd4bf;
+  --border-accent: #8faa83;
   --text: #ffffff;
   --text-muted: #b0b0b0;
-  --text-accent: #5eead4;
+  --text-accent: #8faa83;
   --primary: #f5f5f5;
   --primary-hover: #ffffff;
   --primary-text: #171717;
@@ -49,27 +49,39 @@ body::before {
 }
 
 .header {
-  padding: 16px;
-  background: var(--bg-card);
+  padding: 14px 16px 14px 20px;
   border-bottom: 1px solid var(--border);
   position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
-/* Gradient accent line under header */
-.header::after {
-  content: "";
-  position: absolute;
-  bottom: -1px;
-  left: 16px;
-  right: 16px;
-  height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(45, 212, 191, 0.35), rgba(45, 212, 191, 0.15), transparent);
+.header-github {
+  display: flex;
+  color: var(--text-muted);
+  transition: color var(--transition);
+}
+
+.header-github:hover {
+  color: var(--text);
+}
+
+.header-github svg {
+  width: 14px;
+  height: 14px;
+  fill: currentColor;
 }
 
 .header h1 {
-  font-size: 14px;
-  font-weight: 600;
-  letter-spacing: -0.01em;
+  font-family: "Lora", serif;
+  font-size: 15px;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+}
+
+.header-accent {
+  color: var(--text-accent);
 }
 
 .actions {
@@ -110,7 +122,7 @@ body::before {
 .action-btn.active {
   background: var(--bg-accent);
   border-color: var(--border-accent);
-  box-shadow: 0 0 12px rgba(45, 212, 191, 0.15);
+  box-shadow: 0 0 12px var(--bg-accent);
 }
 
 .action-icon {
@@ -138,10 +150,10 @@ body::before {
 }
 
 .action-btn.active .action-icon {
-  background: rgba(45, 212, 191, 0.15);
-  border-color: rgba(45, 212, 191, 0.3);
+  background: var(--bg-accent);
+  border-color: var(--border-accent);
   color: var(--text-accent);
-  box-shadow: 0 0 8px rgba(45, 212, 191, 0.1);
+  box-shadow: 0 0 8px var(--bg-accent);
 }
 
 .action-icon svg {

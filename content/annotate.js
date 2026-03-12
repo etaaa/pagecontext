@@ -4,20 +4,28 @@ if (!window.__pagecontext_active) {
   let hovered = null;
   const selected = new Set();
 
-  const HOVER_OUTLINE = "2px dashed #2563eb";
-  const SELECTED_OUTLINE = "2px solid #2563eb";
-  const SELECTED_BG = "rgba(37, 99, 235, 0.08)";
+  // Inject styles once
+  const style = document.createElement("style");
+  style.id = "pagecontext-styles";
+  style.textContent = `
+    .pagecontext-hover { outline: 2px dashed #8faa83 !important; }
+    .pagecontext-selected {
+      outline: 2px solid #8faa83 !important;
+      background-color: rgba(143, 170, 131, 0.08) !important;
+    }
+  `;
+  document.head.appendChild(style);
 
   const onMouseOver = (e) => {
-    if (selected.has(e.target)) return;
-    if (hovered) hovered.style.outline = "";
+    if (e.target === hovered || selected.has(e.target)) return;
+    if (hovered) hovered.classList.remove("pagecontext-hover");
     hovered = e.target;
-    hovered.style.outline = HOVER_OUTLINE;
+    hovered.classList.add("pagecontext-hover");
   };
 
-  const onMouseOut = (e) => {
+  const onMouseOut = () => {
     if (hovered && !selected.has(hovered)) {
-      hovered.style.outline = "";
+      hovered.classList.remove("pagecontext-hover");
     }
     hovered = null;
   };
@@ -27,15 +35,13 @@ if (!window.__pagecontext_active) {
     e.stopPropagation();
 
     const el = e.target;
-
     if (selected.has(el)) {
       selected.delete(el);
-      el.style.outline = "";
-      el.style.backgroundColor = "";
+      el.classList.remove("pagecontext-selected");
     } else {
       selected.add(el);
-      el.style.outline = SELECTED_OUTLINE;
-      el.style.backgroundColor = SELECTED_BG;
+      el.classList.remove("pagecontext-hover");
+      el.classList.add("pagecontext-selected");
     }
   };
 
@@ -48,7 +54,7 @@ if (!window.__pagecontext_active) {
     const parts = [];
     for (const el of selected) {
       const clone = el.cloneNode(true);
-      clone.querySelectorAll("script, style, iframe, noscript, svg").forEach((n) => n.remove());
+      clone.querySelectorAll("script, style, link[rel='stylesheet'], iframe, noscript, svg").forEach((n) => n.remove());
       parts.push(clone.outerHTML);
     }
     return parts.join("\n\n");
@@ -56,8 +62,7 @@ if (!window.__pagecontext_active) {
 
   window.__pagecontext_clearSelected = () => {
     for (const el of selected) {
-      el.style.outline = "";
-      el.style.backgroundColor = "";
+      el.classList.remove("pagecontext-selected");
     }
     selected.clear();
   };
@@ -66,8 +71,9 @@ if (!window.__pagecontext_active) {
     document.removeEventListener("mouseover", onMouseOver, true);
     document.removeEventListener("mouseout", onMouseOut, true);
     document.removeEventListener("click", onClick, true);
-    if (hovered) hovered.style.outline = "";
+    document.querySelectorAll(".pagecontext-hover").forEach((el) => el.classList.remove("pagecontext-hover"));
     window.__pagecontext_clearSelected();
+    style.remove();
     window.__pagecontext_active = false;
     window.__pagecontext_disable = null;
     window.__pagecontext_getSelected = null;

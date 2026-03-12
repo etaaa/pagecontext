@@ -1,16 +1,21 @@
 # PageContext
 
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+[![Chrome MV3](https://img.shields.io/badge/Chrome-Manifest%20V3-4285F4?logo=googlechrome&logoColor=white)](https://developer.chrome.com/docs/extensions/develop/migrate/what-is-mv3)
+[![No Build Step](https://img.shields.io/badge/build-none-brightgreen)](#)
+
 Copy what you see in your browser, paste it into any LLM.
 
-LLMs can fetch public URLs, but they can't get past bot protection or see anything behind a login. PageContext grabs the content straight from your browser tab and puts it on your clipboard in a clean, paste-ready format.
+LLMs can fetch public URLs, but they can't get past bot protection or see anything behind a login. PageContext grabs the content straight from your browser tab and puts it on your clipboard in a clean, paste-ready format, with a token estimate so you know what you're working with.
 
 <img src="assets/screenshot.png" alt="PageContext popup" width="340">
 
 ## Features
 
 - **Pick Elements**: hover and click to select specific containers on the page (like DevTools inspect mode), then copy their cleaned HTML.
-- **Copy Article Text**: extract the main article using Mozilla's Readability.js. Copies as markdown with the title and byline.
+- **Copy Article Text**: extract the main article using Mozilla's Readability.js and copy it as markdown with title and byline.
 - **Copy Full Page**: copy the entire page's HTML with scripts, styles, iframes, and SVGs stripped out.
+- **Token estimation**: every copy shows an approximate token count so you can gauge context usage before pasting.
 
 No build step, no external dependencies, no data sent anywhere. Everything runs locally in your browser.
 
@@ -19,9 +24,9 @@ No build step, no external dependencies, no data sent anywhere. Everything runs 
 PageContext is not on the Chrome Web Store yet. To install it locally:
 
 1. Clone this repository.
-2. Open `chrome://extensions` in Chrome.
-3. Enable "Developer mode" in the top right.
-4. Click "Load unpacked" and select the project folder.
+2. Open `chrome://extensions` in Chrome (or any Chromium browser).
+3. Enable **Developer mode** in the top right.
+4. Click **Load unpacked** and select the project folder.
 
 The PageContext icon appears in your toolbar. Click it to open the popup.
 
@@ -43,6 +48,18 @@ Two actions have global shortcuts that work without opening the popup:
 | Copy Full Page | `Alt+Shift+P` |
 
 Customize these at `chrome://extensions/shortcuts`.
+
+## Permissions
+
+| Permission | Why |
+|---|---|
+| `activeTab` | Access the current tab's content when you click the extension |
+| `scripting` | Inject content scripts to extract and clean page content |
+| `offscreen` | Write to the clipboard from keyboard-shortcut triggers (service workers can't access the clipboard directly) |
+
+## Contributing
+
+Contributions are welcome. Please open an issue first if the change is non-trivial.
 
 ## License
 

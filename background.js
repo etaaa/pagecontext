@@ -1,4 +1,7 @@
+let offscreenReady = false;
+
 async function ensureOffscreen() {
+  if (offscreenReady) return;
   const exists = await chrome.offscreen.hasDocument();
   if (!exists) {
     await chrome.offscreen.createDocument({
@@ -7,6 +10,7 @@ async function ensureOffscreen() {
       justification: "Write to clipboard from service worker",
     });
   }
+  offscreenReady = true;
 }
 
 async function copyToClipboard(text) {
@@ -14,51 +18,33 @@ async function copyToClipboard(text) {
   await chrome.runtime.sendMessage({ type: "copy-to-clipboard", text });
 }
 
-async function copyArticle(tab) {
-  await chrome.scripting.executeScript({
-    target: { tabId: tab.id },
-    files: ["lib/Readability.js"],
-  });
+async function runExtraction(tab, files, func) {
+  await chrome.scripting.executeScript({ target: { tabId: tab.id }, files });
   const [{ result }] = await chrome.scripting.executeScript({
     target: { tabId: tab.id },
-    func: () => {
-      const article = new Readability(document.cloneNode(true)).parse();
-      if (!article) return null;
-      let output = `# ${article.title}\n\n`;
-      if (article.byline) output += `*${article.byline}*\n\n`;
-      output += article.textContent.trim();
-      return output;
-    },
+    func,
   });
   return result;
 }
 
-async function copyPage(tab) {
-  const [{ result }] = await chrome.scripting.executeScript({
-    target: { tabId: tab.id },
-    func: () => {
-      const clone = document.documentElement.cloneNode(true);
-      clone.querySelectorAll("script, style, link[rel='stylesheet'], iframe, noscript, svg").forEach((el) => el.remove());
-      return clone.outerHTML;
-    },
-  });
-  return result;
-}
+const commands = {
+  "copy-article": (tab) =>
+    runExtraction(tab, ["lib/Readability.js", "content/extract.js"], () =>
+      window.__pagecontext_extractArticle(),
+    ),
+  "copy-page": (tab) =>
+    runExtraction(tab, ["content/extract.js"], () =>
+      window.__pagecontext_extractPage(),
+    ),
+};
 
 chrome.commands.onCommand.addListener(async (command) => {
   const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
-  if (!tab) return;
+  if (!tab || !commands[command]) return;
 
   try {
-    let text;
-    if (command === "copy-article") {
-      text = await copyArticle(tab);
-    } else if (command === "copy-page") {
-      text = await copyPage(tab);
-    }
-    if (text) {
-      await copyToClipboard(text);
-    }
+    const text = await commands[command](tab);
+    if (text) await copyToClipboard(text);
   } catch (err) {
     console.error(`PageContext: ${command} failed`, err);
   }

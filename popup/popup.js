@@ -9,24 +9,24 @@ async function getActiveTab() {
   return tab;
 }
 
-async function runOnTab(options) {
+async function runOnTab(func) {
   const tab = await getActiveTab();
-  const [{ result }] = await chrome.scripting.executeScript({
-    target: { tabId: tab.id },
-    ...options,
-  });
-  return result;
-}
-
-async function injectAndRun(files, func) {
-  const tab = await getActiveTab();
-  if (files) {
-    await chrome.scripting.executeScript({ target: { tabId: tab.id }, files });
-  }
   const [{ result }] = await chrome.scripting.executeScript({
     target: { tabId: tab.id },
     func,
   });
+  return result;
+}
+
+async function injectOnTab(files) {
+  const tab = await getActiveTab();
+  await chrome.scripting.executeScript({ target: { tabId: tab.id }, files });
+}
+
+async function injectAndRun(files, func) {
+  const tab = await getActiveTab();
+  await chrome.scripting.executeScript({ target: { tabId: tab.id }, files });
+  const [{ result }] = await chrome.scripting.executeScript({ target: { tabId: tab.id }, func });
   return result;
 }
 
@@ -61,23 +61,19 @@ async function copyResult(fn, emptyMsg, successMsg, errorMsg) {
 // Sync pick state with page on popup open
 (async () => {
   try {
-    pickActive = await runOnTab({ func: () => !!window.__pagecontext_active });
+    pickActive = await runOnTab(() => !!window.__pagecontext_active);
     pickBtn.classList.toggle("active", pickActive);
     pickControls.hidden = !pickActive;
-  } catch { }
+  } catch {}
 })();
 
 // Copy Article Text
 document.getElementById("copy-article").addEventListener("click", () => {
   copyResult(
-    () => injectAndRun(["lib/Readability.js"], () => {
-      const article = new Readability(document.cloneNode(true)).parse();
-      if (!article) return null;
-      let output = `# ${article.title}\n\n`;
-      if (article.byline) output += `*${article.byline}*\n\n`;
-      output += article.textContent.trim();
-      return output;
-    }),
+    () => injectAndRun(
+      ["lib/Readability.js", "content/extract.js"],
+      () => window.__pagecontext_extractArticle(),
+    ),
     "Could not extract article from this page.",
     "Article text copied!",
     "Failed to extract article.",
@@ -87,13 +83,10 @@ document.getElementById("copy-article").addEventListener("click", () => {
 // Copy Full Page
 document.getElementById("copy-page").addEventListener("click", () => {
   copyResult(
-    () => runOnTab({
-      func: () => {
-        const clone = document.documentElement.cloneNode(true);
-        clone.querySelectorAll("script, style, link[rel='stylesheet'], iframe, noscript, svg").forEach((el) => el.remove());
-        return clone.outerHTML;
-      },
-    }),
+    () => injectAndRun(
+      ["content/extract.js"],
+      () => window.__pagecontext_extractPage(),
+    ),
     "Page is empty.",
     "Full page copied!",
     "Failed to copy page.",
@@ -102,25 +95,29 @@ document.getElementById("copy-page").addEventListener("click", () => {
 
 // Pick Elements Mode
 pickBtn.addEventListener("click", async () => {
-  pickActive = !pickActive;
-  pickBtn.classList.toggle("active", pickActive);
-  pickControls.hidden = !pickActive;
-
-  if (pickActive) {
-    await runOnTab({ files: ["content/annotate.js"] });
-  } else {
-    await runOnTab({
-      func: () => { if (window.__pagecontext_disable) window.__pagecontext_disable(); },
-    });
+  const enabling = !pickActive;
+  try {
+    if (enabling) {
+      await injectOnTab(["content/annotate.js"]);
+    } else {
+      await runOnTab(() => {
+        if (window.__pagecontext_disable) window.__pagecontext_disable();
+      });
+    }
+    pickActive = enabling;
+    pickBtn.classList.toggle("active", pickActive);
+    pickControls.hidden = !pickActive;
+  } catch (err) {
+    showStatus("Cannot access this page.", "error");
   }
 });
 
 // Copy Selected Elements
 document.getElementById("copy-picked").addEventListener("click", () => {
   copyResult(
-    () => runOnTab({
-      func: () => window.__pagecontext_getSelected && window.__pagecontext_getSelected(),
-    }),
+    () => runOnTab(() =>
+      window.__pagecontext_getSelected && window.__pagecontext_getSelected(),
+    ),
     "No elements selected.",
     "Copied selected elements!",
     "Failed to copy.",
@@ -129,8 +126,8 @@ document.getElementById("copy-picked").addEventListener("click", () => {
 
 // Clear Selected
 document.getElementById("clear-picked").addEventListener("click", async () => {
-  await runOnTab({
-    func: () => window.__pagecontext_clearSelected && window.__pagecontext_clearSelected(),
+  await runOnTab(() => {
+    if (window.__pagecontext_clearSelected) window.__pagecontext_clearSelected();
   });
   showStatus("Selection cleared.", "success");
 });

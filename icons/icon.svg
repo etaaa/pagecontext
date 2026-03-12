@@ -7,8 +7,8 @@
   <rect x="34" y="50" width="44" height="8" rx="4" fill="#3F3F46"/>
 
   <!-- Highlighted/selected line -->
-  <rect x="30" y="66" width="68" height="14" rx="7" fill="#0D9488"/>
-  <rect x="38" y="70" width="52" height="6" rx="3" fill="#2DD4BF"/>
+  <rect x="30" y="66" width="68" height="14" rx="7" fill="#6B8C5E"/>
+  <rect x="38" y="70" width="52" height="6" rx="3" fill="#8FAA83"/>
 
   <!-- Text line -->
   <rect x="34" y="90" width="36" height="8" rx="4" fill="#3F3F46"/>
