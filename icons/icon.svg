@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="0 0 128 128" fill="none">
+  <!-- Circle background -->
+  <circle cx="64" cy="64" r="64" fill="#18181B"/>
+
+  <!-- Text lines -->
+  <rect x="34" y="32" width="60" height="8" rx="4" fill="#3F3F46"/>
+  <rect x="34" y="50" width="44" height="8" rx="4" fill="#3F3F46"/>
+
+  <!-- Highlighted/selected line -->
+  <rect x="30" y="66" width="68" height="14" rx="7" fill="#0D9488"/>
+  <rect x="38" y="70" width="52" height="6" rx="3" fill="#2DD4BF"/>
+
+  <!-- Text line -->
+  <rect x="34" y="90" width="36" height="8" rx="4" fill="#3F3F46"/>
+</svg>
