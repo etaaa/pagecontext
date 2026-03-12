@@ -8,7 +8,9 @@ Copy what you see in your browser, paste it into any LLM.
 
 LLMs can fetch public URLs, but they can't get past bot protection or see anything behind a login. PageContext grabs the content straight from your browser tab and puts it on your clipboard in a clean, paste-ready format, with a token estimate so you know what you're working with.
 
-<img src="assets/screenshot.png" alt="PageContext popup" width="340">
+<p align="center">
+  <img src="assets/screenshot.png" alt="PageContext popup" width="340">
+</p>
 
 ## Features
 
